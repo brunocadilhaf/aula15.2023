@@ -18,7 +18,7 @@ public class Carro implements Acelerador, Autenticavel {
         motorista.setVeiculoAtual(this);
     }
 
-    public Carro(String placa, int numChassi, Motorista motorista){
+    public Carro(String placa, int numChassi, Motorista motorista) throws PlacaInvalidaException {
         setPlaca(placa);
         this.numChassi = numChassi;
         this.motorista = motorista;
@@ -33,17 +33,17 @@ public class Carro implements Acelerador, Autenticavel {
         }
     }
 
-    public void setPlaca(String placa) {
+    public void setPlaca(String placa) throws PlacaInvalidaException {
         if (placa == null) {
-            throw new NullPointerException("O valor da placa não pode ser nulo.");
+            throw new PlacaInvalidaException("O valor da placa não pode ser nulo.");
         }
 
         if (placa.length() != 7) {
-            throw new InputMismatchException("A placa deve ter 7 caracteres.");
+            throw new PlacaInvalidaException("A placa deve ter 7 caracteres.");
         }
 
         if (!placa.matches("[A-Z]{3}\\d{4}")) {
-            throw new InputMismatchException("A placa deve ser composta por 3 letras e 4 números.");
+            throw new PlacaInvalidaException();
         }
 
         this.letrasPlaca = placa.substring(0, 3); //ABC
